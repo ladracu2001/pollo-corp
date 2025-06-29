@@ -1,10 +1,11 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterRepository;
 import java.io.File;
 
 import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLDocument;
+
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterRepository;
 /**
  * Use case for generating and retrieving client reports.
  * This class interacts with the ClientReportRepository to perform operations related to client reports.

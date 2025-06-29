@@ -2,17 +2,12 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
 import java.time.LocalDate;
 
+// Import missing types or define them if not present
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStaleInformationException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStatusException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalClientException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalEMailException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalPhoneException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.*;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientNotifyRepository;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientStatusRepository;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 
 public class ClientNotifyUseCase {

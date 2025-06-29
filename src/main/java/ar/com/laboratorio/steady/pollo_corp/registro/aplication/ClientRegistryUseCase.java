@@ -2,20 +2,18 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
 import java.util.List;
 import java.util.Optional;
-
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientAlreadyExistsException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientMoreThanOneFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStaleInformationException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalAddressException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalClientException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalEMailException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalPhoneException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
-
 public class ClientRegistryUseCase{
 
     private final ClientRepository clientRepository;
