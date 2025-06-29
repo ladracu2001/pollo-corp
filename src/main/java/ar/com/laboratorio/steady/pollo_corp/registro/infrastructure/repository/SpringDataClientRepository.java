@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.entities.ClientEntity;
 
-public interface SpringDataClientRepository extends JpaRepository<ClientEntity, Long> {
+public interface SpringDataClientRepository extends JpaRepository<ClientEntity, String> {
 
     Optional<ClientEntity> findByCuil(String cuil);
 
