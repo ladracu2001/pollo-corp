@@ -16,7 +16,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.Illegal
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 
-public class ClientRegistryUseCase implements ClientRepository {
+public class ClientRegistryUseCase{
 
     private final ClientRepository clientRepository;
 
@@ -24,7 +24,6 @@ public class ClientRegistryUseCase implements ClientRepository {
         this.clientRepository = clientRepository;
     }
 
-    @Override
     public void crearCliente(Client cliente) {
         if(clientRepository.buscarPorCuil(cliente.getCuil()).isPresent()) {
             throw new ClientAlreadyExistsException(String.format("El cliente %s ya existe", cliente.getCuil()));
@@ -47,7 +46,6 @@ public class ClientRegistryUseCase implements ClientRepository {
         }
     }
 
-    @Override
     public void guardarCliente(Client cliente) {
         if (cliente == null || cliente.getCuil() == null) {
             throw new IllegalCUILException("El cliente o su CUIL no pueden ser nulos");
@@ -75,7 +73,6 @@ public class ClientRegistryUseCase implements ClientRepository {
         }
     }
 
-    @Override
     public Optional<List<Client>> buscarClientePorDni(String dni) {
     
         Optional<List<Client>> clientes = clientRepository.buscarClientePorDni(dni);
@@ -88,7 +85,6 @@ public class ClientRegistryUseCase implements ClientRepository {
         return clientes;
     }
 
-    @Override
     public Optional<Client> buscarPorCuil(Cuil cuil) {
         if (cuil == null) {
             throw new IllegalCUILException("El CUIL no puede ser nulo");
@@ -96,7 +92,6 @@ public class ClientRegistryUseCase implements ClientRepository {
         return clientRepository.buscarPorCuil(cuil);
     }
 
-    @Override
     public void eliminarCliente(Cuil cuil) {
         if (cuil == null) {
             throw new IllegalCUILException("El CUIL no puede ser nulo");

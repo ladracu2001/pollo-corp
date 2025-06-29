@@ -15,7 +15,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRep
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientStatusRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 
-public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatusRepository {
+public class ClientNotifyUseCase {
 
     private final ClientNotifyRepository clientNotifyRepository;
     private final ClientStatusRepository clientStatusRepository;
@@ -29,7 +29,7 @@ public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatus
         this.clientStatusRepository = clientStatusRepository;
         this.clientRepository = clientRepository;
     }
-    @Override
+    
     public void notifyByEmail(Client client, String subject, String message) {
         if(client == null || client.getEmail() == null) {
             throw new IllegalEMailException("El cliente o su correo electrónico no pueden ser nulos");
@@ -45,7 +45,6 @@ public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatus
         }
     }
 
-    @Override
     public void notifyBySms(Client client, String message) {
         if(client == null || client.getPhoneNumber() == null) {
             throw new IllegalPhoneException("El cliente o su número de teléfono no pueden ser nulos");
@@ -61,7 +60,6 @@ public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatus
         }
     }
 
-    @Override
     public void notifyByPush(Client client, String message) {
         try {
             clientNotifyRepository.notifyByPush(client, message);            
@@ -74,7 +72,6 @@ public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatus
         }
     }
 
-    @Override
     public boolean isClientActive(Cuil cuil) {
         if(clientStatusRepository.isValidClient(cuil)) {            
             return clientRepository.buscarPorCuil(cuil).map(client -> 
@@ -86,7 +83,6 @@ public class ClientNotifyUseCase implements ClientNotifyRepository, ClientStatus
         return false; // El cliente no es activo o no existe
     }
 
-    @Override
     public boolean isValidClient(Cuil cuil) {
         if(cuil == null) {
             throw new IllegalCUILException(String.format("El CUIL %s no puede ser nulo", cuil));
