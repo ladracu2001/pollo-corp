@@ -13,6 +13,5 @@ public interface SpringDataClientRepository extends JpaRepository<ClientEntity, 
 
     List<ClientEntity> findByDni(String dni);
 
-    // Additional methods can be defined here as needed
-
+    boolean existsByCuil(String cuil);
 }
