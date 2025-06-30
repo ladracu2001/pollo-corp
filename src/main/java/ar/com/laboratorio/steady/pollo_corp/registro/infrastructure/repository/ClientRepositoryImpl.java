@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientAlreadyExistsException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Address;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
@@ -25,17 +28,24 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public void crearCliente(Client client) {
-        // Validaciones y mapeo de Client a ClientEntity
-        // Lanza excepciones de dominio según corresponda
-        // Ejemplo:
-        // if (cliente.getCuil() == null) throw new IllegalCUILException(...);
-        // ...
-        // springDataClientRepository.save(clientEntity);
+        if (client == null) throw new IllegalArgumentException("El cliente no puede ser nulo");
+        if (client.getCuil() == null) throw new IllegalCUILException("El CUIL no puede ser nulo");
+        if (springDataClientRepository.existsByCuil(client.getCuil().toString())) {
+            throw new ClientAlreadyExistsException("Ya existe un cliente con ese CUIL");
+        }
+        ClientEntity entity = toEntity(client);
+        springDataClientRepository.save(entity);
     }
 
     @Override
     public void guardarCliente(Client client) {
-        // Similar a crearCliente, pero actualiza un cliente existente
+        if (client == null) throw new IllegalArgumentException("El cliente no puede ser nulo");
+        if (client.getCuil() == null) throw new IllegalCUILException("El CUIL no puede ser nulo");
+        if (!springDataClientRepository.existsByCuil(client.getCuil().toString())) {
+            throw new ClientNotFoundException("No existe un cliente con ese CUIL");
+        }
+        ClientEntity entity = toEntity(client);
+        springDataClientRepository.save(entity);
     }
     @Override
     public Optional<List<Client>> buscarClientePorDni(String dni) {
@@ -51,9 +61,14 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
     @Override
     public void eliminarCliente(Cuil cuil){
-          // Buscar y eliminar el cliente, lanzar excepciones si corresponde
+        if (cuil == null) throw new IllegalCUILException("El CUIL no puede ser nulo");
+        Optional<ClientEntity> entityOpt = springDataClientRepository.findByCuil(cuil.toString());
+        if (entityOpt.isEmpty()) {
+            throw new ClientNotFoundException("No existe un cliente con ese CUIL");
+        }
+        springDataClientRepository.delete(entityOpt.get());
     }
-    // Métodos de mapeo entre ClientEntity y Client
+    // TODO: reemplazar con un mapper clientMapper.toDomain(clientEntity);
     private Client toDomain(ClientEntity entity) {
         // Email: separar en usuario y dominio
         EMail email = null;
@@ -82,8 +97,8 @@ public class ClientRepositoryImpl implements ClientRepository {
             address = new Address(direccion, numero, ciudad, provincia, codigoPostal);
         }
         return new Client(
-            entity.getDni(),
             new Cuil(entity.getCuil() != null ? entity.getCuil() : null),
+            entity.getDni(),
             entity.getName(),
             entity.getSurname(),
             entity.getLastName(),
@@ -92,5 +107,31 @@ public class ClientRepositoryImpl implements ClientRepository {
             phone,
             address
         );
+    }
+    //TODO: reemplazar con un mapper clientMapper.toEntity(client);
+    private ClientEntity toEntity(Client client) {
+    String email = client.getEmail() != null ? client.getEmail().toString() : null;
+    String phone = client.getPhoneNumber() != null
+        ? String.format("%s-%s-%s", client.getPhoneNumber().codPais(), client.getPhoneNumber().codCiudad(), client.getPhoneNumber().numAbonado())
+        : null;
+    String address = client.getAddress() != null
+        ? String.format("%s, %s, %s, %s, %s",
+            client.getAddress().direccion(),
+            client.getAddress().numero(),
+            client.getAddress().ciudad(),
+            client.getAddress().provincia(),
+            client.getAddress().codigoPostal())
+        : null;
+    return new ClientEntity(
+        client.getCuil() != null ? client.getCuil().toString() : null,
+        client.getDni(),
+        client.getName(),
+        client.getSurname(),
+        client.getLastName(),
+        client.getBirthDate(),
+        email,
+        phone,
+        address
+    );
     }
 }

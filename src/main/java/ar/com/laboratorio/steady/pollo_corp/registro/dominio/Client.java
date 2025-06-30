@@ -20,8 +20,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Client {
 
-    private String dni;
     private Cuil cuil;
+    private String dni;
     private String name;
     private String surname;
     private String lastName;
