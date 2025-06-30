@@ -7,6 +7,8 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Address;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.EMail;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Phone;
+import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.adapters.repository.ClientRepositoryImpl;
+import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.adapters.repository.SpringDataClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.entities.ClientEntity;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientMapper;
 

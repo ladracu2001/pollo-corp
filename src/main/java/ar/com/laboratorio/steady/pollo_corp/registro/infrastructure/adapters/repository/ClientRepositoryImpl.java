@@ -1,4 +1,4 @@
-package ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.repository;
+package ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.adapters.repository;
 
 import java.util.List;
 import java.util.Optional;
