@@ -43,8 +43,8 @@ class ClientTest {
     @Test
     void testToStringNotNull() {
         Client client = new Client(
+            new Cuil("20-12345678-3"),
                 "12345678",
-                new Cuil("20-12345678-3"),
                 "Juan",
                 "Pérez",
                 "Gómez",

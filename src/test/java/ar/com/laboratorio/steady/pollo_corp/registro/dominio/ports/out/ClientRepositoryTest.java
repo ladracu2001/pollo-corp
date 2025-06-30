@@ -54,8 +54,8 @@ class ClientRepositoryTest {
 
     private Client buildClient(String dni, String cuil) {
         return new Client(
+            new Cuil(cuil),
                 dni,
-                new Cuil(cuil),
                 "Juan",
                 "Pérez",
                 "Gómez",
