@@ -15,15 +15,18 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.EMail;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Phone;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.entities.ClientEntity;
+import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientMapper;
 
 @Repository
 public class ClientRepositoryImpl implements ClientRepository {
 
     private final SpringDataClientRepository springDataClientRepository;
+    private final ClientMapper clientMapper;
     // Implement the methods defined in the ClientRepository interface
     // This class will interact with the database using Spring Data JPA or any other ORM framework
-    public ClientRepositoryImpl(SpringDataClientRepository springDataClientRepository) {
+    public ClientRepositoryImpl(SpringDataClientRepository springDataClientRepository, ClientMapper clientMapper) {
         this.springDataClientRepository = springDataClientRepository;
+        this.clientMapper = clientMapper;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class ClientRepositoryImpl implements ClientRepository {
         if (springDataClientRepository.existsByCuil(client.getCuil().toString())) {
             throw new ClientAlreadyExistsException("Ya existe un cliente con ese CUIL");
         }
-        ClientEntity entity = toEntity(client);
+        ClientEntity entity = clientMapper.toEntity(client);
         springDataClientRepository.save(entity);
     }
 
@@ -44,7 +47,7 @@ public class ClientRepositoryImpl implements ClientRepository {
         if (!springDataClientRepository.existsByCuil(client.getCuil().toString())) {
             throw new ClientNotFoundException("No existe un cliente con ese CUIL");
         }
-        ClientEntity entity = toEntity(client);
+        ClientEntity entity = clientMapper.toEntity(client);
         springDataClientRepository.save(entity);
     }
     @Override
@@ -52,12 +55,12 @@ public class ClientRepositoryImpl implements ClientRepository {
         List<ClientEntity> entities = springDataClientRepository.findByDni(dni);
         // Mapear ClientEntity a Client
         // ...
-        return Optional.of(entities.stream().map(this::toDomain).collect(Collectors.toList()));
+        return Optional.of(entities.stream().map(clientMapper::toDomain).collect(Collectors.toList()));
     }
     @Override
     public Optional<Client> buscarPorCuil(Cuil cuil) {
        return springDataClientRepository.findByCuil(cuil.toString())
-                .map(this::toDomain);
+                .map(clientMapper::toDomain);
     }
     @Override
     public void eliminarCliente(Cuil cuil){
@@ -68,7 +71,7 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
         springDataClientRepository.delete(entityOpt.get());
     }
-    // TODO: reemplazar con un mapper clientMapper.toDomain(clientEntity);
+    /*
     private Client toDomain(ClientEntity entity) {
         // Email: separar en usuario y dominio
         EMail email = null;
@@ -108,7 +111,7 @@ public class ClientRepositoryImpl implements ClientRepository {
             address
         );
     }
-    //TODO: reemplazar con un mapper clientMapper.toEntity(client);
+    
     private ClientEntity toEntity(Client client) {
     String email = client.getEmail() != null ? client.getEmail().toString() : null;
     String phone = client.getPhoneNumber() != null
@@ -133,5 +136,5 @@ public class ClientRepositoryImpl implements ClientRepository {
         phone,
         address
     );
-    }
+    }*/
 }

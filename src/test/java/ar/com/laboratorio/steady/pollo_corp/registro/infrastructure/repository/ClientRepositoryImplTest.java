@@ -9,6 +9,8 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.EMail;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Phone;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.entities.ClientEntity;
+import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientMapper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -18,17 +20,23 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class ClientRepositoryImplTest {
 
     private SpringDataClientRepository springDataClientRepository;
+    private ClientMapper clientMapper;
     private ClientRepositoryImpl clientRepository;
 
     @BeforeEach
     void setUp() {
         springDataClientRepository = mock(SpringDataClientRepository.class);
-        clientRepository = new ClientRepositoryImpl(springDataClientRepository);
+        clientMapper = mock(ClientMapper.class);
+        clientRepository = new ClientRepositoryImpl(springDataClientRepository, clientMapper);
+         // Stubs generales para la mayoría de los tests
+    when(clientMapper.toEntity(any(Client.class))).thenReturn(buildEntity());
+    when(clientMapper.toDomain(any(ClientEntity.class))).thenReturn(buildClient());
     }
 
     @Test
