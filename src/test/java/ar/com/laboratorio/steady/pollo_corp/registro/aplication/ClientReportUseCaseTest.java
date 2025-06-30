@@ -1,6 +1,5 @@
-package ar.com.laboratorio.steady.pollo_corp.registro.dominio.aplication;
+package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
-import ar.com.laboratorio.steady.pollo_corp.registro.aplication.ClientReportUseCase;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

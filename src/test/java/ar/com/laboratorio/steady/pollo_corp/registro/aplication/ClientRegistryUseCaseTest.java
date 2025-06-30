@@ -1,6 +1,5 @@
-package ar.com.laboratorio.steady.pollo_corp.registro.dominio.aplication;
+package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
-import ar.com.laboratorio.steady.pollo_corp.registro.aplication.ClientRegistryUseCase;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;

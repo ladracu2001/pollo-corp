@@ -1,6 +1,5 @@
-package ar.com.laboratorio.steady.pollo_corp.registro.dominio.aplication;
+package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
-import ar.com.laboratorio.steady.pollo_corp.registro.aplication.ClientNotifyUseCase;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.*;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientNotifyRepository;
