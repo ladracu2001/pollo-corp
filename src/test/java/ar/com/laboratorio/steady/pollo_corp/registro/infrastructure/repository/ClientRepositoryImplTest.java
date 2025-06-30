@@ -3,7 +3,6 @@ package ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.repository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientAlreadyExistsException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Address;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.EMail;
