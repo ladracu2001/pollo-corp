@@ -10,10 +10,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientA
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Address;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.EMail;
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Phone;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.entities.ClientEntity;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientMapper;
 
