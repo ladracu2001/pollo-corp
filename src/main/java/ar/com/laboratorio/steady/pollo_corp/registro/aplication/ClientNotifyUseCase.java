@@ -83,6 +83,6 @@ public class ClientNotifyUseCase {
         if(cuil == null) {
             throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_NULL, cuil));
         }
-        return clientRepository.buscarPorCuil(cuil).isEmpty();
+        return !clientRepository.buscarPorCuil(cuil).isEmpty();
     }
 }
