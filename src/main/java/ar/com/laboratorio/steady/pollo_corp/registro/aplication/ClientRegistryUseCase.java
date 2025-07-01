@@ -2,6 +2,8 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
 import java.util.List;
 import java.util.Optional;
+
+import ar.com.laboratorio.steady.pollo_corp.registro.common.Constants;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientAlreadyExistsException;
@@ -24,49 +26,49 @@ public class ClientRegistryUseCase{
 
     public void crearCliente(Client cliente) {
         if(clientRepository.buscarPorCuil(cliente.getCuil()).isPresent()) {
-            throw new ClientAlreadyExistsException(String.format("El cliente %s ya existe", cliente.getCuil()));
+            throw new ClientAlreadyExistsException(String.format(Constants.CLIENT_EXCEPTION_EXIST, cliente.getCuil()));
         }
         try{
             clientRepository.crearCliente(cliente);
         }catch(IllegalClientException error){
             switch (error) {
                 case IllegalCUILException e:
-                    throw new IllegalCUILException("El CUIL proporcionado es inválido");
+                    throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_INVALID, cliente.getCuil()));
                 case IllegalAddressException e:
-                    throw new IllegalAddressException("La dirección proporcionada es inválida");
+                    throw new IllegalAddressException(String.format(Constants.ADDRESS_EXCEPTION_INVALID, cliente.getAddress()));
                 case IllegalEMailException e:
-                    throw new IllegalEMailException("El correo electrónico proporcionado es inválido");
+                    throw new IllegalEMailException(String.format(Constants.EMAIL_EXCEPTION_INVALID, cliente.getEmail()));
                 case IllegalPhoneException e:
-                    throw new IllegalPhoneException("El número de teléfono proporcionado es inválido");
+                    throw new IllegalPhoneException(String.format(Constants.PHONE_EXCEPTION_INVALID, cliente.getPhoneNumber()));
                 default:
-                    throw new RuntimeException("Error al crear el cliente: " + error.getMessage(), error);
+                    throw new RuntimeException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
             }
         }
     }
 
     public void guardarCliente(Client cliente) {
         if (cliente == null || cliente.getCuil() == null) {
-            throw new IllegalCUILException("El cliente o su CUIL no pueden ser nulos");
+            throw new IllegalCUILException(Constants.CUIL_EXCEPTION_NULL);
         }
         if (!clientRepository.buscarPorCuil(cliente.getCuil()).isEmpty()) {
-            throw new ClientNotFoundException(String.format("El cliente no existe %s", cliente.getCuil()));
+            throw new ClientNotFoundException(String.format(Constants.CLIENT_EXCEPTION_NOTEXIST, cliente.getCuil()));
         }
         try {
             clientRepository.guardarCliente(cliente);
         }catch(IllegalClientException error){
             switch (error) {
                 case IllegalCUILException e:
-                    throw new IllegalCUILException("El CUIL proporcionado es inválido");
+                    throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_INVALID, cliente.getCuil()));
                 case IllegalAddressException e:
-                    throw new IllegalAddressException("La dirección proporcionada es inválida");
+                    throw new IllegalAddressException(String.format(Constants.ADDRESS_EXCEPTION_INVALID, cliente.getAddress()));
                 case IllegalEMailException e:
-                    throw new IllegalEMailException("El correo electrónico proporcionado es inválido");
+                    throw new IllegalEMailException(String.format(Constants.EMAIL_EXCEPTION_INVALID, cliente.getEmail()));
                 case IllegalPhoneException e:
-                    throw new IllegalPhoneException("El número de teléfono proporcionado es inválido");
+                    throw new IllegalPhoneException(String.format(Constants.PHONE_EXCEPTION_INVALID, cliente.getPhoneNumber()));
                 case ClientStaleInformationException e:
-                    throw new ClientStaleInformationException("La información del cliente está desactualizada");
+                    throw new ClientStaleInformationException(Constants.CLIENT_EXCEPTION_STALE);
                 default:
-                    throw new RuntimeException("Error al crear el cliente: " + error.getMessage(), error);
+                    throw new RuntimeException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
             }
         }
     }
@@ -75,27 +77,27 @@ public class ClientRegistryUseCase{
     
         Optional<List<Client>> clientes = clientRepository.buscarClientePorDni(dni);
         if(clientes.isEmpty() || clientes.get().isEmpty()) {
-            throw new ClientNotFoundException(String.format("No se encontraron clientes con el DNI %s proporcionado", dni));
+            throw new ClientNotFoundException(String.format(Constants.CLIENT_EXCEPTION_NOTEXIST, dni));
         }
         if (clientes.get().size() > 1) {
-            throw new ClientMoreThanOneFoundException(String.format("Se encontraron múltiples clientes con el mismo DNI %s", dni));
+            throw new ClientMoreThanOneFoundException(String.format(Constants.CLIENT_EXCEPTION_MULTIEXIST, dni));
         }
         return clientes;
     }
 
     public Optional<Client> buscarPorCuil(Cuil cuil) {
         if (cuil == null) {
-            throw new IllegalCUILException("El CUIL no puede ser nulo");
+            throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_NULL, cuil));
         }
         return clientRepository.buscarPorCuil(cuil);
     }
 
     public void eliminarCliente(Cuil cuil) {
         if (cuil == null) {
-            throw new IllegalCUILException("El CUIL no puede ser nulo");
+            throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_NULL, cuil));
         }
         if(!clientRepository.buscarPorCuil(cuil).isPresent()) {
-            throw new ClientNotFoundException(String.format("El cliente con el CUIL %s proporcionado no existe", cuil.toString()));
+            throw new ClientNotFoundException(String.format(Constants.CUIL_EXCEPTION_NOTFOUND, cuil.toString()));
         }
         clientRepository.eliminarCliente(cuil);
     }
