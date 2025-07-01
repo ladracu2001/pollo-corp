@@ -11,7 +11,7 @@ public record EMail(String userMail, String domain) {
         if (domain == null || domain.isEmpty()) {
             throw new IllegalEMailException("El dominio del correo electrónico no puede ser nulo o vacío");
         }
-        if(!(userMail+"@"+domain).matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+        if(!(userMail+"@"+domain).matches("^[\\w-.]+@([\\w-]+\\.)+{25}[\\w-]{2,4}$")){
             throw new IllegalEMailException("El formato del correo electrónico es inválido");
         }
     }
