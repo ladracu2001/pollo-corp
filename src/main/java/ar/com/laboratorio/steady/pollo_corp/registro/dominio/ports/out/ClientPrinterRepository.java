@@ -5,6 +5,8 @@ import java.io.File;
 import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLDocument;
 
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
+
 public interface ClientPrinterRepository {
 
     /**
@@ -45,6 +47,6 @@ public interface ClientPrinterRepository {
      * @return A File object representing the client's report file.
      * @throws Exception If an error occurs while retrieving the report file.
      */
-    File getClientReportFile(String clientId, String format) throws Exception;
+    File getClientReportFile(String clientId, String format) throws GeneralException;
     
 }
