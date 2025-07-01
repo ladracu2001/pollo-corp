@@ -60,22 +60,22 @@ public class ClientControllerImpl implements ClientController {
     }
     @Override
     public ResponseEntity<ClientResponseDto> guardarCliente(ClientRequestDto cliente) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'guardarCliente'");
     }
     @Override
     public ResponseEntity<ClientResponseDto> buscarClientePorDni(String dni) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'buscarClientePorDni'");
     }
     @Override
     public ResponseEntity<ClientResponseDto> buscarPorCuil(String cuil) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'buscarPorCuil'");
     }
     @Override
     public ResponseEntity<ClientResponseDto> eliminarCliente(String cuil) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'eliminarCliente'");
     }
 }
