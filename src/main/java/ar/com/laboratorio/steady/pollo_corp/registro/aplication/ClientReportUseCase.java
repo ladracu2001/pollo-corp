@@ -5,6 +5,7 @@ import java.io.File;
 import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLDocument;
 
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterRepository;
 /**
  * Use case for generating and retrieving client reports.
@@ -34,7 +35,7 @@ public class ClientReportUseCase {
         return clientPrinterRepository.getClientReportWeb(clientId, format);
     }
 
-    public File getClientReportFile(String clientId, String format) throws Exception {
+    public File getClientReportFile(String clientId, String format) throws GeneralException {
         return clientPrinterRepository.getClientReportFile(clientId, format);
     }
 
