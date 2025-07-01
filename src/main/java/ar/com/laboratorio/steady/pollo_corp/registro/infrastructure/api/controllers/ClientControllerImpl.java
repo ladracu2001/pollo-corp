@@ -42,15 +42,15 @@ public class ClientControllerImpl implements ClientController {
      // --- Mapper manual simple (puedes usar MapStruct si prefieres) ---
     private ClientResponseDto toDto(Client client) {
         ClientResponseDto dto = new ClientResponseDto();
-        dto.cuil = client.getCuil() != null ? client.getCuil().toString() : null;
-        dto.dni = client.getDni();
-        dto.name = client.getName();
-        dto.surname = client.getSurname();
-        dto.lastName = client.getLastName();
-        dto.birthDate = client.getBirthDate() != null ? client.getBirthDate().toString() : null;
-        dto.email = client.getEmail() != null ? client.getEmail().toString() : null;
-        dto.phoneNumber = client.getPhoneNumber() != null ? client.getPhoneNumber().toString() : null;
-        dto.address = client.getAddress() != null ? client.getAddress().toString() : null;
+        dto.setCuil(client.getCuil() != null ? client.getCuil().toString() : null);
+        dto.setDni(client.getDni());
+        dto.setName(client.getName());
+        dto.setSurname(client.getSurname());
+        dto.setLastName(client.getLastName());
+        dto.setBirthDate(client.getBirthDate() != null ? client.getBirthDate().toString() : null);
+        dto.setEmail(client.getEmail() != null ? client.getEmail().toString() : null);
+        dto.setPhoneNumber(client.getPhoneNumber() != null ? client.getPhoneNumber().toString() : null);
+        dto.setAddress(client.getAddress() != null ? client.getAddress().toString() : null);
         return dto;
     }
     @Override
