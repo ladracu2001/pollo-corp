@@ -16,7 +16,7 @@ public class ClientNotifyUseCase {
     private final ClientNotifyRepository clientNotifyRepository;
     private final ClientStatusRepository clientStatusRepository;
     private final ClientRepository clientRepository;
-    private final int RETIREMENT_AGE = 65;
+    private static final int RETIREMENT_AGE = 65;
 
     public ClientNotifyUseCase(ClientNotifyRepository clientNotifyRepository,
                                ClientStatusRepository clientStatusRepository,
@@ -83,9 +83,6 @@ public class ClientNotifyUseCase {
         if(cuil == null) {
             throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_NULL, cuil));
         }
-        if(clientRepository.buscarPorCuil(cuil).isEmpty()) {
-            return false; // El cliente no existe
-        }
-        return true; // El cliente existe y es válido
+        return clientRepository.buscarPorCuil(cuil).isEmpty() ? false : true; // El cliente existe y es válido
     }
 }

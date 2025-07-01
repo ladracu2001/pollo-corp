@@ -5,30 +5,32 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 /**
  * DTO for client registration requests.
  * This class is used to transfer client data from the API to the application layer.
  */
+@Data
 public class ClientRequestDto {
     
     @Cuil
-    public String cuil;
+    private String cuil;
     @NotNull
     @NotBlank
     @Size(min = 7, max = 11)
-    public String dni;
+    private String dni;
     @NotNull
     @NotBlank
     @Size(min = 2, max = 50)
-    public String name;
-    public String surname;
+    private String name;
+    private String surname;
     @NotNull
     @NotBlank
     @Size(min = 2, max = 50)
-    public String lastName;
-    public String birthDate; // ISO string
+    private String lastName;
+    private String birthDate; // ISO string
     @Email
-    public String email;
-    public String phoneNumber;
-    public String address;
+    private String email;
+    private String phoneNumber;
+    private String address;
 }
