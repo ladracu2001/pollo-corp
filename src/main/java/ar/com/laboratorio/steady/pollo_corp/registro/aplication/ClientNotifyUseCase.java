@@ -36,7 +36,7 @@ public class ClientNotifyUseCase {
             switch (error) {
                 case IllegalEMailException e: throw new IllegalEMailException(String.format(Constants.EMAIL_EXCEPTION_INVALID, client.getEmail()) );
                 case ClientStaleInformationException e: throw new ClientStaleInformationException(String.format(Constants.CLIENT_EXCEPTION_STALE, client) );
-                default: throw new RuntimeException(Constants.EMAIL_EXCEPTION_NOTIFICATION + error.getMessage(), error);
+                default: throw new GeneralException(Constants.EMAIL_EXCEPTION_NOTIFICATION + error.getMessage(), error);
             }
         }
     }
@@ -51,7 +51,7 @@ public class ClientNotifyUseCase {
             switch (error) {
                 case IllegalPhoneException e: throw new IllegalPhoneException(String.format(Constants.PHONE_EXCEPTION_INVALID, client.getPhoneNumber()) );
                 case ClientStaleInformationException e: throw new ClientStaleInformationException(String.format(Constants.CLIENT_EXCEPTION_STALE, client) );
-                default: throw new RuntimeException(Constants.PHONE_EXCEPTION_NOTIFICATION + error.getMessage(), error);
+                default: throw new GeneralException(Constants.PHONE_EXCEPTION_NOTIFICATION + error.getMessage(), error);
             }
         }
     }
@@ -63,7 +63,7 @@ public class ClientNotifyUseCase {
             switch (error) {
                 case ClientNotFoundException e  : throw new ClientNotFoundException(String.format(Constants.CUIL_EXCEPTION_NOTFOUND, client.getCuil()));
                 case ClientStaleInformationException e: throw new ClientStaleInformationException(String.format(Constants.CLIENT_EXCEPTION_STALE, client) );                    
-                default: throw new RuntimeException(Constants.PUSH_EXCEPTION_NOTIFICATION + error.getMessage(), error);
+                default: throw new GeneralException(Constants.PUSH_EXCEPTION_NOTIFICATION + error.getMessage(), error);
             }
         }
     }
@@ -83,6 +83,6 @@ public class ClientNotifyUseCase {
         if(cuil == null) {
             throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_NULL, cuil));
         }
-        return clientRepository.buscarPorCuil(cuil).isEmpty() ? false : true; // El cliente existe y es válido
+        return clientRepository.buscarPorCuil(cuil).isEmpty();
     }
 }

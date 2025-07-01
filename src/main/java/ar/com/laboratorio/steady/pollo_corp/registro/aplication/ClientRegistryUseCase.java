@@ -10,6 +10,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientA
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientMoreThanOneFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStaleInformationException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalAddressException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalClientException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalCUILException;
@@ -41,7 +42,7 @@ public class ClientRegistryUseCase{
                 case IllegalPhoneException e:
                     throw new IllegalPhoneException(String.format(Constants.PHONE_EXCEPTION_INVALID, cliente.getPhoneNumber()));
                 default:
-                    throw new RuntimeException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
+                    throw new GeneralException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
             }
         }
     }
@@ -68,7 +69,7 @@ public class ClientRegistryUseCase{
                 case ClientStaleInformationException e:
                     throw new ClientStaleInformationException(Constants.CLIENT_EXCEPTION_STALE);
                 default:
-                    throw new RuntimeException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
+                    throw new GeneralException(Constants.CLIENT_EXCEPTION + error.getMessage(), error);
             }
         }
     }
