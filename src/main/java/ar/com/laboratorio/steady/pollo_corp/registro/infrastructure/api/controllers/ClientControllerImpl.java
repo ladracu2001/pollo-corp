@@ -26,7 +26,7 @@ public class ClientControllerImpl implements ClientController {
         this.clientRegistryUseCase = clientRegistryUseCase;
     }
 
-    @GetMapping("/cuil")
+    @GetMapping("/cuil/{cuil}")
     public ResponseEntity<ClientResponseDto> getByCuil(@PathVariable String cuil) {
         Optional<Client> clientOpt = clientRegistryUseCase.buscarPorCuil(new Cuil(cuil));
         return clientOpt
@@ -34,7 +34,7 @@ public class ClientControllerImpl implements ClientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{cuil}")
+    @DeleteMapping("/cuil/{cuil}")
     public ResponseEntity<Void> deleteByCuil(@PathVariable String cuil) {
         clientRegistryUseCase.eliminarCliente(new Cuil(cuil));
         return ResponseEntity.noContent().build();

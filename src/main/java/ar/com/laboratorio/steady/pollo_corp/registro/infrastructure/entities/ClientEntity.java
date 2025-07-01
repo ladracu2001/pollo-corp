@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "client")
+@Table(name = "client", schema = "pollo_corp")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
