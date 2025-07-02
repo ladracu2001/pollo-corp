@@ -76,5 +76,23 @@ class ClientDtoMapperTest {
     void testNullSafeMapping() {
         assertThat(mapper.toDomain(null)).isNull();
         assertThat(mapper.toDto(null)).isNull();
+    }
+    @Test
+    void testMetodosAuxiliares() {
+        assertThat(mapper.fromAddress(new Address("Calle Falsa", "123", "CABA", "Buenos Aires", "1000"))).isEqualTo("Calle Falsa, 123, CABA, Buenos Aires, 1000");
+        assertThat(mapper.fromPhone(new Phone("+54", "11", "12345678"))).isEqualTo("+54-11-12345678");
+        assertThat(mapper.fromCuil(new Cuil("20-12345678-3"))).isEqualTo("20-12345678-3");
+        assertThat(mapper.fromEMail(new EMail("juan", "mail.com"))).isEqualTo("juan@mail.com");
+        assertThat(mapper.fromLocalDate(LocalDate.of(1990, 1, 1))).isEqualTo("1990-01-01");
+        assertThat(mapper.toAddress("Calle Falsa, 123, CABA, Buenos Aires, 1000")).isEqualTo(new Address("Calle Falsa", "123", "CABA", "Buenos Aires", "1000"));
+        assertThat(mapper.toPhone("+54-11-12345678")).isEqualTo(new Phone("+54", "11", "12345678"));
+        assertThat(mapper.toCuil("20-12345678-3")).isEqualTo(new Cuil("20-12345678-3"));
+        assertThat(mapper.toEMail("juan@mail.com")).isEqualTo(new EMail("juan", "mail.com"));
+        assertThat(mapper.toLocalDate("1990-01-01")).isEqualTo(LocalDate.of(1990, 1, 1));
+        assertThat(mapper.toLocalDate("invalid-date")).isNull(); // Verifica manejo de fechas inválidas
+        assertThat(mapper.toEMail("invalid-email")).isNull(); // Verifica manejo de emails inválidos
+        assertThat(mapper.toPhone("invalid-phone")).isNull(); // Verifica manejo de teléfonos inválidos
+        assertThat(mapper.toCuil("invalid-cuil")).isNull(); // Verifica manejo de CUIL inválidos
+        assertThat(mapper.toAddress("invalid-address")).isNull(); // Verifica manejo de direcciones inválidas
     } 
 }
