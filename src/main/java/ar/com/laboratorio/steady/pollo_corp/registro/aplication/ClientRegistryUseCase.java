@@ -17,6 +17,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.Illegal
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalEMailException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalPhoneException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
+
 public class ClientRegistryUseCase{
 
     private final ClientRepository clientRepository;
@@ -101,5 +102,8 @@ public class ClientRegistryUseCase{
             throw new ClientNotFoundException(String.format(Constants.CUIL_EXCEPTION_NOTFOUND, cuil.toString()));
         }
         clientRepository.eliminarCliente(cuil);
+    }
+    public List<Client> obtenerTodosLosClientes() {
+        return clientRepository.findAll(); // O el método correspondiente en tu puerto
     }
 }

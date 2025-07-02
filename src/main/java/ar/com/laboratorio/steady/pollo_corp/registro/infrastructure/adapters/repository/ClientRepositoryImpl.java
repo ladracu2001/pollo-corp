@@ -68,70 +68,11 @@ public class ClientRepositoryImpl implements ClientRepository {
         }
         springDataClientRepository.delete(entityOpt.get());
     }
-    /*
-    private Client toDomain(ClientEntity entity) {
-        // Email: separar en usuario y dominio
-        EMail email = null;
-        if (entity.getEmail() != null && entity.getEmail().contains("@")) {
-            String[] parts = entity.getEmail().split("@", 2);
-            email = new EMail(parts[0], parts[1]);
-        }
-        // Phone: separar en codPais-codCiudad-numAbonado (ejemplo: "+54-11-12345678")
-        Phone phone = null;
-        if (entity.getPhoneNumber() != null) {
-            String[] parts = entity.getPhoneNumber().split("-", 3);
-            String codPais = parts.length > 0 ? parts[0] : null;
-            String codCiudad = parts.length > 1 ? parts[1] : null;
-            String numAbonado = parts.length > 2 ? parts[2] : null;
-            phone = new Phone(codPais, codCiudad, numAbonado);
-        }
-        // Address: separar en direccion, numero, ciudad, provincia, codigoPostal
-        Address address = null;
-        if (entity.getAddress() != null) {
-            String[] parts = entity.getAddress().split(",", 5);
-            String direccion = parts.length > 0 ? parts[0].trim() : null;
-            String numero = parts.length > 1 ? parts[1].trim() : null;
-            String ciudad = parts.length > 2 ? parts[2].trim() : null;
-            String provincia = parts.length > 3 ? parts[3].trim() : null;
-            String codigoPostal = parts.length > 4 ? parts[4].trim() : null;
-            address = new Address(direccion, numero, ciudad, provincia, codigoPostal);
-        }
-        return new Client(
-            new Cuil(entity.getCuil() != null ? entity.getCuil() : null),
-            entity.getDni(),
-            entity.getName(),
-            entity.getSurname(),
-            entity.getLastName(),
-            entity.getBirthDate(),
-            email,
-            phone,
-            address
-        );
+    @Override
+    public List<Client> findAll() {
+     return springDataClientRepository.findAll()
+                .stream()
+                .map(clientMapper::toDomain)
+                .collect(Collectors.toList());
     }
-    
-    private ClientEntity toEntity(Client client) {
-    String email = client.getEmail() != null ? client.getEmail().toString() : null;
-    String phone = client.getPhoneNumber() != null
-        ? String.format("%s-%s-%s", client.getPhoneNumber().codPais(), client.getPhoneNumber().codCiudad(), client.getPhoneNumber().numAbonado())
-        : null;
-    String address = client.getAddress() != null
-        ? String.format("%s, %s, %s, %s, %s",
-            client.getAddress().direccion(),
-            client.getAddress().numero(),
-            client.getAddress().ciudad(),
-            client.getAddress().provincia(),
-            client.getAddress().codigoPostal())
-        : null;
-    return new ClientEntity(
-        client.getCuil() != null ? client.getCuil().toString() : null,
-        client.getDni(),
-        client.getName(),
-        client.getSurname(),
-        client.getLastName(),
-        client.getBirthDate(),
-        email,
-        phone,
-        address
-    );
-    }*/
 }

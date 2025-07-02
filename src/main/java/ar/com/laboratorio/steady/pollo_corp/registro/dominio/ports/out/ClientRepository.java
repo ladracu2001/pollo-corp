@@ -63,4 +63,10 @@ public interface ClientRepository {
      * @throws ClientNotFoundException Si el cliente con el CUIL proporcionado no existe.
      */
     void eliminarCliente(Cuil cuil);
+    /**
+     * Obtiene todos los clientes.
+     *
+     * @return Una lista de todos los clientes.
+     */
+    List<Client> findAll();
 }

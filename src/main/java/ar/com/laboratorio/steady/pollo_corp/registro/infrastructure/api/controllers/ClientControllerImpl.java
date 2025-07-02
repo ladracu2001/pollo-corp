@@ -20,16 +20,24 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @RestController
 @RequestMapping("/api/clients")
 public class ClientControllerImpl implements ClientController {
 
     private final ClientRegistryUseCase clientRegistryUseCase;
     private final ClientDtoMapper clientDtoMapper;
-
+    
     public ClientControllerImpl(ClientRegistryUseCase clientRegistryUseCase, ClientDtoMapper clientDtoMapper) {
         this.clientRegistryUseCase = clientRegistryUseCase;
         this.clientDtoMapper = clientDtoMapper;
+    }
+    @GetMapping("/clients")
+    public ResponseEntity<List<ClientResponseDto>> getAll() {
+        List<Client> clients = this.clientRegistryUseCase.obtenerTodosLosClientes();                
+        List<ClientResponseDto> clientDtos = clients.stream()
+                .map(this.clientDtoMapper::toDto).toList();
+        return ResponseEntity.ok(clientDtos);
     }
     
     @Override

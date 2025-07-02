@@ -46,6 +46,11 @@ class DummyClientRepository implements ClientRepository {
         if (!db.containsKey(cuil.toString())) throw new ClientNotFoundException("No existe");
         db.remove(cuil.toString());
     }
+
+    @Override
+    public List<Client> findAll() {
+        return new ArrayList<>(db.values());
+    }
 }
 
 class ClientRepositoryTest {
@@ -111,5 +116,18 @@ class ClientRepositoryTest {
     @Test
     void testBuscarClientePorDniNoExistenteLanzaExcepcion() {
         assertThrows(ClientNotFoundException.class, () -> repo.buscarClientePorDni("99999999"));
+    }
+
+    @Test
+    void testFindAll() {
+        Client client1 = buildClient("12345678", "20-12345678-3");
+        Client client2 = buildClient("87654321", "20-87654321-3");
+        repo.crearCliente(client1);
+        repo.crearCliente(client2);
+
+        List<Client> all = repo.findAll();
+        assertEquals(2, all.size());
+        assertTrue(all.stream().anyMatch(c -> c.getCuil().toString().equals("20-12345678-3")));
+        assertTrue(all.stream().anyMatch(c -> c.getCuil().toString().equals("20-87654321-3")));
     }
 }
