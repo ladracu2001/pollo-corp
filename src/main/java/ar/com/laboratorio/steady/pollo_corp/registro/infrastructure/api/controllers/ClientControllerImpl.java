@@ -8,36 +8,27 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.api.dtos.ClientRequestDto;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.api.dtos.ClientResponseDto;
+import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientDtoMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("/api/clients")
 public class ClientControllerImpl implements ClientController {
 
     private final ClientRegistryUseCase clientRegistryUseCase;
+    private final ClientDtoMapper clientDtoMapper;
 
-    public ClientControllerImpl(ClientRegistryUseCase clientRegistryUseCase) {
+    public ClientControllerImpl(ClientRegistryUseCase clientRegistryUseCase, ClientDtoMapper clientDtoMapper) {
         this.clientRegistryUseCase = clientRegistryUseCase;
-    }
-
-    @GetMapping("/cuil/{cuil}")
-    public ResponseEntity<ClientResponseDto> getByCuil(@PathVariable String cuil) {
-        Optional<Client> clientOpt = clientRegistryUseCase.buscarPorCuil(new Cuil(cuil));
-        return clientOpt
-                .map(client -> ResponseEntity.ok(toDto(client)))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/cuil/{cuil}")
-    public ResponseEntity<Void> deleteByCuil(@PathVariable String cuil) {
-        clientRegistryUseCase.eliminarCliente(new Cuil(cuil));
-        return ResponseEntity.noContent().build();
+        this.clientDtoMapper = clientDtoMapper;
     }
      // --- Mapper manual simple (puedes usar MapStruct si prefieres) ---
     private ClientResponseDto toDto(Client client) {
@@ -54,28 +45,38 @@ public class ClientControllerImpl implements ClientController {
         return dto;
     }
     @Override
+    @PostMapping("/cliente/{cliente}")
     public ResponseEntity<ClientResponseDto> crearCliente(ClientRequestDto cliente) {
-        //this.clientRegistryUseCase.crearCliente(cliente.toDomain());
-        throw new UnsupportedOperationException("Unimplemented method 'crearCliente'");
+        this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
+        return ResponseEntity.ok(toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
+    @PatchMapping("/cliente/{cliente}")
     public ResponseEntity<ClientResponseDto> guardarCliente(ClientRequestDto cliente) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'guardarCliente'");
+        this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
+        return ResponseEntity.ok(toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
+    @GetMapping("/dni/{dni}")
     public ResponseEntity<ClientResponseDto> buscarClientePorDni(String dni) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'buscarClientePorDni'");
+        Optional<List<Client>> clientOpt = clientRegistryUseCase.buscarClientePorDni(dni);
+        return clientOpt
+                .map(clients -> ResponseEntity.ok(toDto(clients.get(0)))) // Asumiendo que solo se devuelve un cliente
+                .orElse(ResponseEntity.notFound().build());
     }
     @Override
+    @GetMapping("/cuil/{cuil}")
     public ResponseEntity<ClientResponseDto> buscarPorCuil(String cuil) {
         
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorCuil'");
+        Optional<Client> clientOpt = clientRegistryUseCase.buscarPorCuil(new Cuil(cuil));
+        return clientOpt
+                .map(client -> ResponseEntity.ok(toDto(client)))
+                .orElse(ResponseEntity.notFound().build());
     }
     @Override
+    @DeleteMapping("/cuil/{cuil}")
     public ResponseEntity<ClientResponseDto> eliminarCliente(String cuil) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarCliente'");
+        clientRegistryUseCase.eliminarCliente(new Cuil(cuil));
+        return ResponseEntity.noContent().build();
     }
 }
