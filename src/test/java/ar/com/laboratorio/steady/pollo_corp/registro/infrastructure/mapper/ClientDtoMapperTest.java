@@ -76,5 +76,5 @@ class ClientDtoMapperTest {
     void testNullSafeMapping() {
         assertThat(mapper.toDomain(null)).isNull();
         assertThat(mapper.toDto(null)).isNull();
-    }
+    } 
 }
