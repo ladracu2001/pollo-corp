@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
@@ -30,52 +31,39 @@ public class ClientControllerImpl implements ClientController {
         this.clientRegistryUseCase = clientRegistryUseCase;
         this.clientDtoMapper = clientDtoMapper;
     }
-     // --- Mapper manual simple (puedes usar MapStruct si prefieres) ---
-    private ClientResponseDto toDto(Client client) {
-        ClientResponseDto dto = new ClientResponseDto();
-        dto.setCuil(client.getCuil() != null ? client.getCuil().toString() : null);
-        dto.setDni(client.getDni());
-        dto.setName(client.getName());
-        dto.setSurname(client.getSurname());
-        dto.setLastName(client.getLastName());
-        dto.setBirthDate(client.getBirthDate() != null ? client.getBirthDate().toString() : null);
-        dto.setEmail(client.getEmail() != null ? client.getEmail().toString() : null);
-        dto.setPhoneNumber(client.getPhoneNumber() != null ? client.getPhoneNumber().toString() : null);
-        dto.setAddress(client.getAddress() != null ? client.getAddress().toString() : null);
-        return dto;
-    }
+    
     @Override
     @PostMapping("/cliente/{cliente}")
-    public ResponseEntity<ClientResponseDto> crearCliente(ClientRequestDto cliente) {
+    public ResponseEntity<ClientResponseDto> crearCliente(@PathVariable ClientRequestDto cliente) {
         this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
-        return ResponseEntity.ok(toDto(this.clientDtoMapper.toDomain(cliente)));
+        return ResponseEntity.ok(this.clientDtoMapper.toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
     @PatchMapping("/cliente/{cliente}")
-    public ResponseEntity<ClientResponseDto> guardarCliente(ClientRequestDto cliente) {
+    public ResponseEntity<ClientResponseDto> guardarCliente(@PathVariable ClientRequestDto cliente) {
         this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
-        return ResponseEntity.ok(toDto(this.clientDtoMapper.toDomain(cliente)));
+        return ResponseEntity.ok(this.clientDtoMapper.toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
     @GetMapping("/dni/{dni}")
-    public ResponseEntity<ClientResponseDto> buscarClientePorDni(String dni) {
+    public ResponseEntity<ClientResponseDto> buscarClientePorDni(@PathVariable String dni) {
         Optional<List<Client>> clientOpt = clientRegistryUseCase.buscarClientePorDni(dni);
         return clientOpt
-                .map(clients -> ResponseEntity.ok(toDto(clients.get(0)))) // Asumiendo que solo se devuelve un cliente
+                .map(clients -> ResponseEntity.ok(this.clientDtoMapper.toDto(clients.get(0)))) // Asumiendo que solo se devuelve un cliente
                 .orElse(ResponseEntity.notFound().build());
     }
     @Override
     @GetMapping("/cuil/{cuil}")
-    public ResponseEntity<ClientResponseDto> buscarPorCuil(String cuil) {
+    public ResponseEntity<ClientResponseDto> buscarPorCuil(@PathVariable String cuil) {
         
         Optional<Client> clientOpt = clientRegistryUseCase.buscarPorCuil(new Cuil(cuil));
         return clientOpt
-                .map(client -> ResponseEntity.ok(toDto(client)))
+                .map(client -> ResponseEntity.ok(this.clientDtoMapper.toDto(client)))
                 .orElse(ResponseEntity.notFound().build());
     }
     @Override
     @DeleteMapping("/cuil/{cuil}")
-    public ResponseEntity<ClientResponseDto> eliminarCliente(String cuil) {
+    public ResponseEntity<ClientResponseDto> eliminarCliente(@PathVariable String cuil) {
         clientRegistryUseCase.eliminarCliente(new Cuil(cuil));
         return ResponseEntity.noContent().build();
     }
