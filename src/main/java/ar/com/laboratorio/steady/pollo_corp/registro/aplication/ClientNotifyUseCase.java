@@ -32,7 +32,7 @@ public class ClientNotifyUseCase {
         }
         try {
             clientNotifyRepository.notifyByEmail(client, subject, message);            
-        } catch (IllegalClientException error) {
+        } catch (IllegalClientException | ClientStatusException error) {
             switch (error) {
                 case IllegalEMailException e: throw new IllegalEMailException(String.format(Constants.EMAIL_EXCEPTION_INVALID, client.getEmail()) );
                 case ClientStaleInformationException e: throw new ClientStaleInformationException(String.format(Constants.CLIENT_EXCEPTION_STALE, client) );
@@ -47,7 +47,7 @@ public class ClientNotifyUseCase {
         }
         try {
             clientNotifyRepository.notifyBySms(client, message);            
-        } catch (IllegalClientException error) {
+        } catch (IllegalClientException | ClientStatusException error) {
             switch (error) {
                 case IllegalPhoneException e: throw new IllegalPhoneException(String.format(Constants.PHONE_EXCEPTION_INVALID, client.getPhoneNumber()) );
                 case ClientStaleInformationException e: throw new ClientStaleInformationException(String.format(Constants.CLIENT_EXCEPTION_STALE, client) );

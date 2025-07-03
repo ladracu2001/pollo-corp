@@ -1,6 +1,6 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones;
 
-public sealed class IllegalClientException extends RuntimeException permits IllegalAddressException, IllegalEMailException, IllegalPhoneException, IllegalCUILException, ClientStatusException {
+public sealed class IllegalClientException extends RuntimeException permits IllegalAddressException, IllegalEMailException, IllegalPhoneException, IllegalCUILException {
     public IllegalClientException(String message) {
         super(message);
     }

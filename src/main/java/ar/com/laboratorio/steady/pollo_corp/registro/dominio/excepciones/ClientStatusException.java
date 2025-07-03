@@ -1,6 +1,6 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones;
 
-public sealed class ClientStatusException extends IllegalClientException permits
+public sealed class ClientStatusException extends RuntimeException permits
         ClientAlreadyExistsException,
         ClientNotFoundException,
         ClientStaleInformationException, ClientMoreThanOneFoundException{

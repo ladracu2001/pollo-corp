@@ -10,6 +10,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientA
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientMoreThanOneFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientNotFoundException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStaleInformationException;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.ClientStatusException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalAddressException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.IllegalClientException;
@@ -57,7 +58,7 @@ public class ClientRegistryUseCase{
         }
         try {
             clientRepository.guardarCliente(cliente);
-        }catch(IllegalClientException error){
+        }catch(IllegalClientException | ClientStatusException error){
             switch (error) {
                 case IllegalCUILException e:
                     throw new IllegalCUILException(String.format(Constants.CUIL_EXCEPTION_INVALID, cliente.getCuil()));
