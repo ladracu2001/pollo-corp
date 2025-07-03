@@ -1,4 +1,4 @@
-INSERT INTO client (cuil, dni, name, surname, lastName, birthDate, email, phoneNumber, address) VALUES
+INSERT INTO client (cuil, dni, name, surname, last_name, birth_date, email, phone_number, address) VALUES
 ('20-10000001-3', '10000001', 'Juan', 'Pérez', 'García', '1990-01-01', 'juan1@mail.com', '+54-11-10000001', 'Calle 1, 100, CABA, Buenos Aires, 1000'),
 ('20-10000002-3', '10000002', 'Ana', 'López', 'Martínez', '1991-02-02', 'ana2@mail.com', '+54-11-10000002', 'Calle 2, 101, CABA, Buenos Aires, 1001'),
 ('20-10000003-3', '10000003', 'Luis', 'Gómez', 'Fernández', '1992-03-03', 'luis3@mail.com', '+54-11-10000003', 'Calle 3, 102, CABA, Buenos Aires, 1002'),
