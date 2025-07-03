@@ -9,6 +9,7 @@ import ar.com.laboratorio.steady.pollo_corp.registro.dominio.vo.Cuil;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.api.dtos.ClientRequestDto;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.api.dtos.ClientResponseDto;
 import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.mapper.ClientDtoMapper;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class ClientControllerImpl implements ClientController {
         this.clientRegistryUseCase = clientRegistryUseCase;
         this.clientDtoMapper = clientDtoMapper;
     }
+    @Override
     @GetMapping("/clients")
     public ResponseEntity<List<ClientResponseDto>> getAll() {
         List<Client> clients = this.clientRegistryUseCase.obtenerTodosLosClientes();                
@@ -42,27 +44,32 @@ public class ClientControllerImpl implements ClientController {
     
     @Override
     @PostMapping("/cliente/{cliente}")
-    public ResponseEntity<ClientResponseDto> crearCliente(@PathVariable ClientRequestDto cliente) {
+    public ResponseEntity<ClientResponseDto> crearCliente(@Valid @PathVariable ClientRequestDto cliente) {
         this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
         return ResponseEntity.ok(this.clientDtoMapper.toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
     @PatchMapping("/cliente/{cliente}")
-    public ResponseEntity<ClientResponseDto> guardarCliente(@PathVariable ClientRequestDto cliente) {
+    public ResponseEntity<ClientResponseDto> guardarCliente(@Valid @PathVariable ClientRequestDto cliente) {
         this.clientRegistryUseCase.crearCliente(this.clientDtoMapper.toDomain(cliente));
         return ResponseEntity.ok(this.clientDtoMapper.toDto(this.clientDtoMapper.toDomain(cliente)));
     }
     @Override
     @GetMapping("/dni/{dni}")
-    public ResponseEntity<ClientResponseDto> buscarClientePorDni(@PathVariable String dni) {
+    public ResponseEntity<List<ClientResponseDto>> buscarClientePorDni(@Valid @PathVariable String dni) {
         Optional<List<Client>> clientOpt = clientRegistryUseCase.buscarClientePorDni(dni);
-        return clientOpt
-                .map(clients -> ResponseEntity.ok(this.clientDtoMapper.toDto(clients.get(0)))) // Asumiendo que solo se devuelve un cliente
-                .orElse(ResponseEntity.notFound().build());
+        if (clientOpt.isPresent() && !clientOpt.get().isEmpty()) {
+            List<ClientResponseDto> dtos = clientOpt.get().stream()
+                .map(this.clientDtoMapper::toDto)
+                .toList();
+            return ResponseEntity.ok(dtos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
     @Override
     @GetMapping("/cuil/{cuil}")
-    public ResponseEntity<ClientResponseDto> buscarPorCuil(@PathVariable String cuil) {
+    public ResponseEntity<ClientResponseDto> buscarPorCuil(@Valid @PathVariable String cuil) {
         
         Optional<Client> clientOpt = clientRegistryUseCase.buscarPorCuil(new Cuil(cuil));
         return clientOpt
@@ -71,7 +78,7 @@ public class ClientControllerImpl implements ClientController {
     }
     @Override
     @DeleteMapping("/cuil/{cuil}")
-    public ResponseEntity<ClientResponseDto> eliminarCliente(@PathVariable String cuil) {
+    public ResponseEntity<ClientResponseDto> eliminarCliente(@Valid @PathVariable String cuil) {
         clientRegistryUseCase.eliminarCliente(new Cuil(cuil));
         return ResponseEntity.noContent().build();
     }

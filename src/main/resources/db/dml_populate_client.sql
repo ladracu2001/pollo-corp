@@ -1,0 +1,25 @@
+INSERT INTO client (cuil, dni, name, surname, lastName, birthDate, email, phoneNumber, address) VALUES
+('20-10000001-3', '10000001', 'Juan', 'Pérez', 'García', '1990-01-01', 'juan1@mail.com', '+54-11-10000001', 'Calle 1, 100, CABA, Buenos Aires, 1000'),
+('20-10000002-3', '10000002', 'Ana', 'López', 'Martínez', '1991-02-02', 'ana2@mail.com', '+54-11-10000002', 'Calle 2, 101, CABA, Buenos Aires, 1001'),
+('20-10000003-3', '10000003', 'Luis', 'Gómez', 'Fernández', '1992-03-03', 'luis3@mail.com', '+54-11-10000003', 'Calle 3, 102, CABA, Buenos Aires, 1002'),
+('20-10000004-3', '10000004', 'María', 'Díaz', 'Sánchez', '1993-04-04', 'maria4@mail.com', '+54-11-10000004', 'Calle 4, 103, CABA, Buenos Aires, 1003'),
+('20-10000005-3', '10000005', 'Pedro', 'Torres', 'Ramírez', '1994-05-05', 'pedro5@mail.com', '+54-11-10000005', 'Calle 5, 104, CABA, Buenos Aires, 1004'),
+('20-10000006-3', '10000006', 'Lucía', 'Ruiz', 'Flores', '1995-06-06', 'lucia6@mail.com', '+54-11-10000006', 'Calle 6, 105, CABA, Buenos Aires, 1005'),
+('20-10000007-3', '10000007', 'Carlos', 'Moreno', 'Jiménez', '1996-07-07', 'carlos7@mail.com', '+54-11-10000007', 'Calle 7, 106, CABA, Buenos Aires, 1006'),
+('20-10000008-3', '10000008', 'Sofía', 'Romero', 'Navarro', '1997-08-08', 'sofia8@mail.com', '+54-11-10000008', 'Calle 8, 107, CABA, Buenos Aires, 1007'),
+('20-10000009-3', '10000009', 'Diego', 'Molina', 'Castro', '1998-09-09', 'diego9@mail.com', '+54-11-10000009', 'Calle 9, 108, CABA, Buenos Aires, 1008'),
+('20-10000010-3', '10000010', 'Valentina', 'Ortega', 'Suárez', '1999-10-10', 'valentina10@mail.com', '+54-11-10000010', 'Calle 10, 109, CABA, Buenos Aires, 1009'),
+-- 90 registros más:
+('20-10000011-3', '10000011', 'Nombre11', 'Apellido11', 'ApellidoB11', '1980-01-11', 'email11@mail.com', '+54-11-10000011', 'Calle 11, 110, CABA, Buenos Aires, 1010'),
+('20-10000012-3', '10000012', 'Nombre12', 'Apellido12', 'ApellidoB12', '1980-01-12', 'email12@mail.com', '+54-11-10000012', 'Calle 12, 111, CABA, Buenos Aires, 1011'),
+('20-10000013-3', '10000013', 'Nombre13', 'Apellido13', 'ApellidoB13', '1980-01-13', 'email13@mail.com', '+54-11-10000013', 'Calle 13, 112, CABA, Buenos Aires, 1012'),
+('20-10000014-3', '10000014', 'Nombre14', 'Apellido14', 'ApellidoB14', '1980-01-14', 'email14@mail.com', '+54-11-10000014', 'Calle 14, 113, CABA, Buenos Aires, 1013'),
+('20-10000015-3', '10000015', 'Nombre15', 'Apellido15', 'ApellidoB15', '1980-01-15', 'email15@mail.com', '+54-11-10000015', 'Calle 15, 114, CABA, Buenos Aires, 1014'),
+('20-10000016-3', '10000016', 'Nombre16', 'Apellido16', 'ApellidoB16', '1980-01-16', 'email16@mail.com', '+54-11-10000016', 'Calle 16, 115, CABA, Buenos Aires, 1015'),
+('20-10000017-3', '10000017', 'Nombre17', 'Apellido17', 'ApellidoB17', '1980-01-17', 'email17@mail.com', '+54-11-10000017', 'Calle 17, 116, CABA, Buenos Aires, 1016'),
+('20-10000018-3', '10000018', 'Nombre18', 'Apellido18', 'ApellidoB18', '1980-01-18', 'email18@mail.com', '+54-11-10000018', 'Calle 18, 117, CABA, Buenos Aires, 1017'),
+('20-10000019-3', '10000019', 'Nombre19', 'Apellido19', 'ApellidoB19', '1980-01-19', 'email19@mail.com', '+54-11-10000019', 'Calle 19, 118, CABA, Buenos Aires, 1018'),
+('20-10000020-3', '10000020', 'Nombre20', 'Apellido20', 'ApellidoB20', '1980-01-20', 'email20@mail.com', '+54-11-10000020', 'Calle 20, 119, CABA, Buenos Aires, 1019'),
+-- ...
+('20-10000099-3', '10000099', 'Nombre99', 'Apellido99', 'ApellidoB99', '1980-01-29', 'email99@mail.com', '+54-11-10000099', 'Calle 99, 198, CABA, Buenos Aires, 1088'),
+('20-10100000-3', '10100000', 'Nombre100', 'Apellido100', 'ApellidoB100', '1980-01-30', 'email100@mail.com', '+54-11-10100000', 'Calle 100, 199, CABA, Buenos Aires, 1089');
