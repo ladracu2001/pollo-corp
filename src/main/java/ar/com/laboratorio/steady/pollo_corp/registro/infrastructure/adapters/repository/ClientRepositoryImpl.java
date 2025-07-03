@@ -2,7 +2,6 @@ package ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.adapters.re
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
@@ -52,7 +51,7 @@ public class ClientRepositoryImpl implements ClientRepository {
         List<ClientEntity> entities = springDataClientRepository.findByDni(dni);
         // Mapear ClientEntity a Client
         // ...
-        return Optional.of(entities.stream().map(clientMapper::toDomain).collect(Collectors.toList()));
+        return Optional.of(entities.stream().map(clientMapper::toDomain).toList());
     }
     @Override
     public Optional<Client> buscarPorCuil(Cuil cuil) {
@@ -73,6 +72,6 @@ public class ClientRepositoryImpl implements ClientRepository {
      return springDataClientRepository.findAll()
                 .stream()
                 .map(clientMapper::toDomain)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
