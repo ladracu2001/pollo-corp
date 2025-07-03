@@ -20,4 +20,5 @@ public class Constants {
     public static final String CUIL_EXCEPTION_INVALID = "El CUIL %s proporcionado es inválido";
     public static final String ADDRESS_EXCEPTION_INVALID = "La dirección %s proporcionada es inválida";
     public static final String PUSH_EXCEPTION_NOTIFICATION = "Error al enviar la notificación push: ";
+    public static final String INTERNAL_EXCEPTION_NOTIFICATION = "Error no contemplado: ";
 }
