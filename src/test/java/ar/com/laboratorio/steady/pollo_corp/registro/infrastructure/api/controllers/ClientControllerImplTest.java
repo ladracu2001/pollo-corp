@@ -29,6 +29,7 @@ class ClientControllerImplTest {
         controller = new ClientControllerImpl(useCase, mapper);
     }
 
+    @SuppressWarnings("null")
     @Test
     void getAll_returnsList() {
         Client client = mock(Client.class);
@@ -76,6 +77,7 @@ class ClientControllerImplTest {
         assertSame(dto, response.getBody());
     }
 
+    @SuppressWarnings("null")
     @Test
     void buscarClientePorDni_found() {
         String dni = "12345678";
@@ -87,7 +89,7 @@ class ClientControllerImplTest {
 
         ResponseEntity<List<ClientResponseDto>> response = controller.buscarClientePorDni(dni);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         assertEquals(1, response.getBody().size());
         assertSame(dto, response.getBody().get(0));
     }
@@ -114,7 +116,7 @@ class ClientControllerImplTest {
 
         ResponseEntity<ClientResponseDto> response = controller.buscarPorCuil(cuilStr);
 
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(200, response.getStatusCode().value());
         assertSame(dto, response.getBody());
     }
 

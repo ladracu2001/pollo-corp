@@ -14,14 +14,17 @@ class GlobalHandlerExceptionTest {
 
     private final GlobalHandlerException handler = new GlobalHandlerException();
 
+    @SuppressWarnings("null")
     @Test
     void handleClientNotFoundException() {
         ClientNotFoundException ex = new ClientNotFoundException("No existe");
         ResponseEntity<Map<String, String>> response = handler.handleClientNotFoundException(ex);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(404, response.getStatusCode().value());
+        assertNotNull(response.getBody());
         assertEquals("No existe", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleClientAlreadyExistsException() {
         ClientAlreadyExistsException ex = new ClientAlreadyExistsException("Ya existe");
@@ -30,6 +33,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.CLIENT_EXCEPTION_EXIST + "Ya existe", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleClientStaleInformationException() {
         ClientStaleInformationException ex = new ClientStaleInformationException("Stale");
@@ -38,6 +42,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.CLIENT_EXCEPTION_STALE + "Stale", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleIllegalCUILException() {
         IllegalCUILException ex = new IllegalCUILException("CUIL inválido");
@@ -46,6 +51,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.CUIL_EXCEPTION_INVALID + "CUIL inválido", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleIllegalAddressException() {
         IllegalAddressException ex = new IllegalAddressException("Dirección inválida");
@@ -54,6 +60,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.ADDRESS_EXCEPTION_INVALID + "Dirección inválida", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleIllegalEMailException() {
         IllegalEMailException ex = new IllegalEMailException("Email inválido");
@@ -62,6 +69,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.EMAIL_EXCEPTION_INVALID + "Email inválido", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleIllegalPhoneException() {
         IllegalPhoneException ex = new IllegalPhoneException("Teléfono inválido");
@@ -70,6 +78,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.PHONE_EXCEPTION_INVALID + "Teléfono inválido", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleClientMoreThanOneFoundException() {
         ClientMoreThanOneFoundException ex = new ClientMoreThanOneFoundException("Multiples");
@@ -78,6 +87,7 @@ class GlobalHandlerExceptionTest {
         assertEquals(Constants.CLIENT_EXCEPTION_MULTIEXIST + "Multiples", response.getBody().get("error"));
     }
 
+    @SuppressWarnings("null")
     @Test
     void handleGeneralException() {
         GeneralException ex = new GeneralException("Error general");

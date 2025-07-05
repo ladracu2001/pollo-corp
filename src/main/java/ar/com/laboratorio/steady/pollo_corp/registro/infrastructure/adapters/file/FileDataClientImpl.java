@@ -4,7 +4,6 @@ import java.io.File;
 
 import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLDocument;
-import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
