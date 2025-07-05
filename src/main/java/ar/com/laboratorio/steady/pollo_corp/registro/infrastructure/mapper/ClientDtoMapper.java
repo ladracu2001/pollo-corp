@@ -15,29 +15,29 @@ import ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.api.dtos.Cli
 
 import java.time.LocalDate;
 
-@Mapper(componentModel = "spring")
+//@Mapper(componentModel = "spring")
 public interface ClientDtoMapper {
-
+/*
     ClientDtoMapper INSTANCE = Mappers.getMapper(ClientDtoMapper.class);
 
-    @Mapping(target = "cuil", source = "cuil", qualifiedByName = "toCuil")
-    @Mapping(target = "email", source = "email", qualifiedByName = "toEMail")
-    @Mapping(target = "phoneNumber", source = "phoneNumber", qualifiedByName = "toPhone")
-    @Mapping(target = "address", source = "address", qualifiedByName = "toAddress")
-    @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "toLocalDate")
-    Client toDomain(ClientRequestDto clientRequestDto);
+    @Mapping(target = "cuil", source = "cuil", qualifiedByName = "toDtoCuil")
+    @Mapping(target = "email", source = "email", qualifiedByName = "toDtoEMail")
+    @Mapping(target = "phoneNumber", source = "phoneNumber", qualifiedByName = "toDtoPhone")
+    @Mapping(target = "address", source = "address", qualifiedByName = "toDtoAddress")
+    @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "toDtoLocalDate")
+    Client toDto(ClientRequestDto clientRequestDto);
 
-    @Mapping(target = "cuil", source = "cuil", qualifiedByName = "fromCuil")
-    @Mapping(target = "email", source = "email", qualifiedByName = "fromEMail")
-    @Mapping(target = "phoneNumber", source = "phoneNumber", qualifiedByName = "fromPhone")
-    @Mapping(target = "address", source = "address", qualifiedByName = "fromAddress")
-    @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "fromLocalDate")
-    ClientResponseDto toDto(Client client);
+    @Mapping(target = "cuil", source = "cuil", qualifiedByName = "fromDtoCuil")
+    @Mapping(target = "email", source = "email", qualifiedByName = "fromDtoEMail")
+    @Mapping(target = "phoneNumber", source = "phoneNumber", qualifiedByName = "fromDtoPhone")
+    @Mapping(target = "address", source = "address", qualifiedByName = "fromDtoAddress")
+    @Mapping(target = "birthDate", source = "birthDate", qualifiedByName = "fromDtoLocalDate")
+    ClientResponseDto fromDto(Client client);
 
     // --- Métodos auxiliares robustos ---
 
-    @Named("toCuil")
-    default Cuil toCuil(String cuil) {
+    @Named("toDtoCuil")
+    default Cuil toDtoCuil(String cuil) {
         try {
             return cuil != null ? new Cuil(cuil) : null;
         } catch (Exception e) {
@@ -45,13 +45,13 @@ public interface ClientDtoMapper {
         }
     }
 
-    @Named("fromCuil")
+    @Named("fromDtoCuil")
     default String fromCuil(Cuil cuil) {
         return cuil != null ? cuil.toString() : null;
     }
 
-    @Named("toEMail")
-    default EMail toEMail(String email) {
+    @Named("toDtoEMail")
+    default EMail toDtoEMail(String email) {
         try {
             if (email != null && email.contains("@")) {
                 String[] parts = email.split("@", 2);
@@ -63,13 +63,13 @@ public interface ClientDtoMapper {
         return null;
     }
 
-    @Named("fromEMail")
+    @Named("fromDtoEMail")
     default String fromEMail(EMail email) {
         return email != null ? email.toString() : null;
     }
 
-    @Named("toPhone")
-    default Phone toPhone(String phone) {
+    @Named("toDtoPhone")
+    default Phone toDtoPhone(String phone) {
         try {
             if (phone != null) {
                 String[] parts = phone.split("-", 3);
@@ -84,15 +84,15 @@ public interface ClientDtoMapper {
         return null;
     }
 
-    @Named("fromPhone")
+    @Named("fromDtoPhone")
     default String fromPhone(Phone phone) {
         return phone != null
             ? String.format("%s-%s-%s", phone.codPais(), phone.codCiudad(), phone.numAbonado())
             : null;
     }
 
-    @Named("toAddress")
-    default Address toAddress(String address) {
+    @Named("toDtoAddress")
+    default Address toDtoAddress(String address) {
         try {
             if (address != null) {
                 String[] parts = address.split(",", 5);
@@ -109,7 +109,7 @@ public interface ClientDtoMapper {
         return null;
     }
 
-    @Named("fromAddress")
+    @Named("fromDtoAddress")
     default String fromAddress(Address address) {
         return address != null
             ? String.format("%s, %s, %s, %s, %s",
@@ -121,8 +121,8 @@ public interface ClientDtoMapper {
             : null;
     }
 
-    @Named("toLocalDate")
-    default LocalDate toLocalDate(String date) {
+    @Named("toDtoLocalDate")
+    default LocalDate toDtoLocalDate(String date) {
         try {
             return date != null ? LocalDate.parse(date) : null;
         } catch (Exception e) {
@@ -130,8 +130,8 @@ public interface ClientDtoMapper {
         }
     }
 
-    @Named("fromLocalDate")
+    @Named("fromDtoLocalDate")
     default String fromLocalDate(LocalDate date) {
         return date != null ? date.toString() : null;
-    }
+    }*/
 }

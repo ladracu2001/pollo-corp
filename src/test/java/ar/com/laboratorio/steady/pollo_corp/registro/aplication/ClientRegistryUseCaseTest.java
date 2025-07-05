@@ -109,4 +109,156 @@ class ClientRegistryUseCaseTest {
         assertEquals(1, result.get().size());
         assertEquals(c1, result.get().get(0));
     }
+
+    @Test
+    void guardarCliente_lanzaExcepcionSiClienteEsNull() {
+        assertThrows(IllegalCUILException.class, () -> useCase.guardarCliente(null));
+    }
+
+    @Test
+    void guardarCliente_lanzaExcepcionSiCuilEsNull() {
+        Client client = mock(Client.class);
+        when(client.getCuil()).thenReturn(null);
+        assertThrows(IllegalCUILException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaExcepcionSiNoExiste() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.of(client));
+        assertThrows(ClientNotFoundException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_ok() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        useCase.guardarCliente(client);
+        verify(clientRepository).guardarCliente(client);
+    }
+
+    @Test
+    void obtenerTodosLosClientes_ok() {
+        Client c1 = mock(Client.class);
+        Client c2 = mock(Client.class);
+        when(clientRepository.findAll()).thenReturn(List.of(c1, c2));
+        List<Client> result = useCase.obtenerTodosLosClientes();
+        assertEquals(2, result.size());
+        assertTrue(result.contains(c1));
+        assertTrue(result.contains(c2));
+    }
+
+    @Test
+    void crearCliente_lanzaIllegalCUILException() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalCUILException("CUIL inválido")).when(clientRepository).crearCliente(client);
+
+        assertThrows(IllegalCUILException.class, () -> useCase.crearCliente(client));
+    }
+
+    @Test
+    void crearCliente_lanzaIllegalAddressException() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalAddressException("Dirección inválida")).when(clientRepository).crearCliente(client);
+
+        assertThrows(IllegalAddressException.class, () -> useCase.crearCliente(client));
+    }
+
+    @Test
+    void crearCliente_lanzaIllegalEMailException() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalEMailException("Email inválido")).when(clientRepository).crearCliente(client);
+
+        assertThrows(IllegalEMailException.class, () -> useCase.crearCliente(client));
+    }
+
+    @Test
+    void crearCliente_lanzaIllegalPhoneException() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalPhoneException("Teléfono inválido")).when(clientRepository).crearCliente(client);
+
+        assertThrows(IllegalPhoneException.class, () -> useCase.crearCliente(client));
+    }
+
+    @Test
+    void crearCliente_lanzaGeneralException() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalClientException("Otro error")).when(clientRepository).crearCliente(client);
+
+        assertThrows(GeneralException.class, () -> useCase.crearCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaIllegalCUILExceptionPorRepositorio() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalCUILException("CUIL inválido")).when(clientRepository).guardarCliente(client);
+
+        assertThrows(IllegalCUILException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaIllegalAddressExceptionPorRepositorio() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalAddressException("Dirección inválida")).when(clientRepository).guardarCliente(client);
+
+        assertThrows(IllegalAddressException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaIllegalEMailExceptionPorRepositorio() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalEMailException("Email inválido")).when(clientRepository).guardarCliente(client);
+
+        assertThrows(IllegalEMailException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaIllegalPhoneExceptionPorRepositorio() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalPhoneException("Teléfono inválido")).when(clientRepository).guardarCliente(client);
+
+        assertThrows(IllegalPhoneException.class, () -> useCase.guardarCliente(client));
+    }
+
+    @Test
+    void guardarCliente_lanzaGeneralExceptionPorRepositorio() {
+        Client client = mock(Client.class);
+        Cuil cuil = new Cuil("20-12345678-3");
+        when(client.getCuil()).thenReturn(cuil);
+        when(clientRepository.buscarPorCuil(cuil)).thenReturn(Optional.empty());
+        doThrow(new IllegalClientException("Otro error")).when(clientRepository).guardarCliente(client);
+
+        assertThrows(GeneralException.class, () -> useCase.guardarCliente(client));
+    }
 }
