@@ -2,7 +2,6 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
 import java.io.File;
 
-import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLDocument;
 
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
@@ -23,20 +22,12 @@ public class ClientReportUseCase {
         return clientPrinterRepository.getClientTextReport(clientId);
     }
 
-    public Text getClientTextReportAsText(String clientId) {
-        return clientPrinterRepository.getClientTextReportAsText(clientId);
-    }
-
     public byte[] exportClientData(String clientId, String format) {
         return clientPrinterRepository.exportClientData(clientId, format);
     }
 
     public HTMLDocument getClientReportWeb(String clientId, String format) {
         return clientPrinterRepository.getClientReportWeb(clientId, format);
-    }
-
-    public File getClientReportFile(String clientId, String format) throws GeneralException {
-        return clientPrinterRepository.getClientReportFile(clientId, format);
     }
 
 }

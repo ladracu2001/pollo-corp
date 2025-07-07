@@ -30,14 +30,6 @@ class ClientReportUseCaseTest {
     }
 
     @Test
-    void getClientTextReportAsText_returnsText() {
-        Text text = mock(Text.class);
-        when(clientPrinterRepository.getClientTextReportAsText("1")).thenReturn(text);
-        Text result = useCase.getClientTextReportAsText("1");
-        assertEquals(text, result);
-    }
-
-    @Test
     void exportClientData_returnsBytes() {
         byte[] data = new byte[]{1, 2, 3};
         when(clientPrinterRepository.exportClientData("1", "pdf")).thenReturn(data);
@@ -51,13 +43,5 @@ class ClientReportUseCaseTest {
         when(clientPrinterRepository.getClientReportWeb("1", "html")).thenReturn(doc);
         HTMLDocument result = useCase.getClientReportWeb("1", "html");
         assertEquals(doc, result);
-    }
-
-    @Test
-    void getClientReportFile_returnsFile() throws Exception {
-        File file = mock(File.class);
-        when(clientPrinterRepository.getClientReportFile("1", "pdf")).thenReturn(file);
-        File result = useCase.getClientReportFile("1", "pdf");
-        assertEquals(file, result);
     }
 }
