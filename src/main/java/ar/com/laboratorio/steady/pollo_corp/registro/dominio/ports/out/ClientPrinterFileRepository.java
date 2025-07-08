@@ -1,5 +1,6 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out;
 
+import java.io.File;
 import java.io.IOException;
 
 //import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
@@ -21,6 +22,14 @@ public interface ClientPrinterFileRepository {
      * @throws IOException if an I/O error occurs
      */
     String load(String filename) throws IOException;
+    /**
+     * Loads a file with the specified filename.
+     *
+     * @param filename the name of the file to load
+     * @return the File object representing the file
+     * @throws IOException if an I/O error occurs
+     */
+    File loadFile(String filename) throws IOException;
     /**
      * Deletes the file with the specified filename.
      *

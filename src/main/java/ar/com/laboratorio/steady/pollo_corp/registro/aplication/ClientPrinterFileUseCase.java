@@ -1,6 +1,7 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
 import java.io.File;
+import java.io.IOException;
 
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterFileRepository;
@@ -14,43 +15,50 @@ public class ClientPrinterFileUseCase {
     }
 
     public File getClientReportFile(String clientId, String format) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getClientReportFile'");
+        try {
+            return clientPrinterFileRepository.loadFile(clientId+ "." + format);            
+        } catch (IOException e) {
+            throw new FileIOException("Error loading client report file: " + e.getMessage(), e);
+        }
     }
-
     
-    public void saveClientReportFile(String clientId, String format, File file) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveClientReportFile'");
+    public void saveClientReportFile(String clientId, String format, String content) throws FileIOException {
+        try {
+            clientPrinterFileRepository.save(clientId + "." + format, content);            
+        } catch (IOException e) {
+            throw new FileIOException("Error saving client report file: " + e.getMessage(), e);
+        }
     }
 
     
     public void deleteClientReportFile(String clientId, String format) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteClientReportFile'");
+        try {
+            clientPrinterFileRepository.delete(clientId + "." + format);            
+        } catch (IOException e) {
+            throw new FileIOException("Error deleting client report file: " + e.getMessage(), e);
+        }
     }
-
     
     public File getClientsReportFile(String format) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getClientsReportFile'");
+        try {
+            return clientPrinterFileRepository.loadFile("clients." + format);            
+        } catch (IOException e) {
+            throw new FileIOException("Error loading client report file: " + e.getMessage(), e);
+        }
     }
-
-    
-    public void saveClientsReportFile(String format, File file) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveClientsReportFile'");
+    public void saveClientsReportFile(String format, String content) throws FileIOException {
+        try {
+            clientPrinterFileRepository.save("clients." + format, content);            
+        } catch (IOException e) {
+            throw new FileIOException("Error saving clients report file: " + e.getMessage(), e);
+        }
     }
-
     
     public boolean existsClientReportFile(String clientId, String format) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsClientReportFile'");
+        return clientPrinterFileRepository.exists(clientId + "." + format);
     }
-
     
     public boolean existsClientsReportFile(String format) throws FileIOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsClientsReportFile'");
+        return clientPrinterFileRepository.exists("clients." + format);
     }
 }
