@@ -24,4 +24,5 @@ public class Constants {
     public static final String FILE_EXCEPTION_DELETE = "Error deleting client report file: ";
     public static final String FILE_EXCEPTION_SAVE = "Error saving client report file: ";
     public static final String FILE_EXCEPTION_LOAD = "Error loading client report file: ";
+    public static final String FILE_NAME_CLIENTS = "clients";
 }

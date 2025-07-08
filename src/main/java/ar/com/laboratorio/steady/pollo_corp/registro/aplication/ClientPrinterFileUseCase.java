@@ -42,14 +42,14 @@ public class ClientPrinterFileUseCase {
     
     public File getClientsReportFile(String format) throws FileIOException {
         try {
-            return clientPrinterFileRepository.loadFile("clients." + format);            
+            return clientPrinterFileRepository.loadFile(Constants.FILE_NAME_CLIENTS  + "." +  format);            
         } catch (IOException e) {
             throw new FileIOException(Constants.FILE_EXCEPTION_LOAD + e.getMessage(), e);
         }
     }
     public void saveClientsReportFile(String format, String content) throws FileIOException {
         try {
-            clientPrinterFileRepository.save("clients." + format, content);            
+            clientPrinterFileRepository.save(Constants.FILE_NAME_CLIENTS  + "." +  format, content);            
         } catch (IOException e) {
             throw new FileIOException(Constants.FILE_EXCEPTION_SAVE + e.getMessage(), e);
         }
@@ -60,6 +60,6 @@ public class ClientPrinterFileUseCase {
     }
     
     public boolean existsClientsReportFile(String format) {
-        return clientPrinterFileRepository.exists("clients." + format);
+        return clientPrinterFileRepository.exists(Constants.FILE_NAME_CLIENTS  + "." +  format);
     }
 }

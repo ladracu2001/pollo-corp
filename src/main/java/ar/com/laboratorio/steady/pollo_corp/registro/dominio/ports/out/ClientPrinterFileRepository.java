@@ -3,8 +3,6 @@ package ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out;
 import java.io.File;
 import java.io.IOException;
 
-//import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
-
 public interface ClientPrinterFileRepository {
     /**
      * Saves the content to a file with the specified filename.

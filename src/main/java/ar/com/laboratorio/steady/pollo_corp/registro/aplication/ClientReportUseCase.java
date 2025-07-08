@@ -1,10 +1,6 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
-import java.io.File;
-
 import org.w3c.dom.html.HTMLDocument;
-
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterRepository;
 /**
  * Use case for generating and retrieving client reports.

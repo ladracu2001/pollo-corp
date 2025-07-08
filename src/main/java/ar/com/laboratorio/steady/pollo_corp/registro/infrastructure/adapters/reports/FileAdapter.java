@@ -1,8 +1,5 @@
-// src/main/java/com/tuempresa/tuproducto/adapters/out/filesystem/FileAdapter.java
 package ar.com.laboratorio.steady.pollo_corp.registro.infrastructure.adapters.reports;
 
-
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterFileRepository;
 
 import java.io.File;
