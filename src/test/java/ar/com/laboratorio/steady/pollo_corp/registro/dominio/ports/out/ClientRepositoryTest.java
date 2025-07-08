@@ -101,7 +101,8 @@ class ClientRepositoryTest {
 
     @Test
     void testEliminarClienteNoExistenteLanzaExcepcion() {
-        assertThrows(ClientNotFoundException.class, () -> repo.eliminarCliente(new Cuil("20-00000000-0")));
+        Cuil cuil = new Cuil("20-00000000-0");
+        assertThrows(ClientNotFoundException.class, () -> repo.eliminarCliente(cuil));
     }
 
     @Test
