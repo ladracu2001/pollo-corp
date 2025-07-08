@@ -1,62 +1,39 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out;
 
-import java.io.File;
+import java.io.IOException;
 
-import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.GeneralException;
+//import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 
 public interface ClientPrinterFileRepository {
     /**
-     * Retrieves a file containing the client's report in the specified format.
-     * 
-     * @param clientId The ID of the client for whom the report is retrieved.
-     * @param format The format of the report (e.g., "PDF", "CSV").
-     * @return A File object representing the client's report file.
-     * @throws Exception If an error occurs while retrieving the report file.
+     * Saves the content to a file with the specified filename.
+     *
+     * @param filename the name of the file to save
+     * @param content  the content to write to the file
+     * @throws IOException if an I/O error occurs
      */
-    File getClientReportFile(String clientId, String format) throws GeneralException;
+    void save(String filename, String content) throws IOException;
     /**
-     * Saves a client's report file in the specified format.
-     * 
-     * @param clientId The ID of the client for whom the report is saved.
-     * @param format The format of the report (e.g., "PDF", "CSV").
-     * @param file The File object containing the report data to be saved.
-     * @throws GeneralException If an error occurs while saving the report file.
+     * Loads the content from a file with the specified filename.
+     *
+     * @param filename the name of the file to load
+     * @return the content of the file
+     * @throws IOException if an I/O error occurs
      */
-    void saveClientReportFile(String clientId, String format, File file) throws GeneralException;
+    String load(String filename) throws IOException;
     /**
-     * Deletes a client's report file in the specified format.
-     * 
-     * @param clientId The ID of the client for whom the report file is deleted.
-     * @param format The format of the report (e.g., "PDF", "CSV").
-     * @throws GeneralException If an error occurs while deleting the report file.
+     * Deletes the file with the specified filename.
+     *
+     * @param filename the name of the file to delete
+     * @throws IOException if an I/O error occurs
      */
-    void deleteClientReportFile(String clientId, String format) throws GeneralException;
+    void delete(String filename) throws IOException;
     /**
-     * Retrieves a file containing the clients' report in the specified format.
-     * 
-     * @param format The format of the report (e.g., "PDF", "CSV").
-     * @return A File object representing the clients' report file.
-     * @throws GeneralException If an error occurs while retrieving the report file.
+     * Checks if a file with the specified filename exists.
+     *
+     * @param filename the name of the file to check
+     * @return true if the file exists, false otherwise
      */
-    File getClientsReportFile(String format) throws GeneralException;
-    /**
-     * Saves a clients' report file in the specified format.
-     * 
-     * @param format The format of the report (e.g., "PDF", "CSV").
-     * @param file The File object containing the report data to be saved.
-     * @throws GeneralException If an error occurs while saving the report file.
-     */
-    void saveClientsReportFile(String format, File file) throws GeneralException;
-    /*
-     * Exists methods to check if a report file exists for a specific client.
-     * @param clientId The ID of the client for whom the report file existence is checked.
-     * @param format The format of the report (e.g., "PDF", "CSV
-     */
-    boolean existsClientReportFile(String clientId, String format) throws GeneralException;
-    /*
-     * Exists methods to check if a report file exists for all clients.
-     * @param clientId The ID of the client for whom the report file existence is checked.
-     * @param format The format of the report (e.g., "PDF", "CSV
-     */
-    boolean existsClientsReportFile(String format) throws GeneralException;
+    boolean exists(String filename);
+
 }
