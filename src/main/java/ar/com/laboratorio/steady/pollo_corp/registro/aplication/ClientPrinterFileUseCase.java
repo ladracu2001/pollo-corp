@@ -3,6 +3,7 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 import java.io.File;
 import java.io.IOException;
 
+import ar.com.laboratorio.steady.pollo_corp.registro.common.Constants;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterFileRepository;
 
@@ -18,7 +19,7 @@ public class ClientPrinterFileUseCase {
         try {
             return clientPrinterFileRepository.loadFile(clientId+ "." + format);            
         } catch (IOException e) {
-            throw new FileIOException("Error loading client report file: " + e.getMessage(), e);
+            throw new FileIOException(Constants.FILE_EXCEPTION_LOAD + e.getMessage(), e);
         }
     }
     
@@ -26,7 +27,7 @@ public class ClientPrinterFileUseCase {
         try {
             clientPrinterFileRepository.save(clientId + "." + format, content);            
         } catch (IOException e) {
-            throw new FileIOException("Error saving client report file: " + e.getMessage(), e);
+            throw new FileIOException(Constants.FILE_EXCEPTION_SAVE + e.getMessage(), e);
         }
     }
 
@@ -35,7 +36,7 @@ public class ClientPrinterFileUseCase {
         try {
             clientPrinterFileRepository.delete(clientId + "." + format);            
         } catch (IOException e) {
-            throw new FileIOException("Error deleting client report file: " + e.getMessage(), e);
+            throw new FileIOException(Constants.FILE_EXCEPTION_DELETE + e.getMessage(), e);
         }
     }
     
@@ -43,22 +44,22 @@ public class ClientPrinterFileUseCase {
         try {
             return clientPrinterFileRepository.loadFile("clients." + format);            
         } catch (IOException e) {
-            throw new FileIOException("Error loading client report file: " + e.getMessage(), e);
+            throw new FileIOException(Constants.FILE_EXCEPTION_LOAD + e.getMessage(), e);
         }
     }
     public void saveClientsReportFile(String format, String content) throws FileIOException {
         try {
             clientPrinterFileRepository.save("clients." + format, content);            
         } catch (IOException e) {
-            throw new FileIOException("Error saving clients report file: " + e.getMessage(), e);
+            throw new FileIOException(Constants.FILE_EXCEPTION_SAVE + e.getMessage(), e);
         }
     }
     
-    public boolean existsClientReportFile(String clientId, String format) throws FileIOException {
+    public boolean existsClientReportFile(String clientId, String format) {
         return clientPrinterFileRepository.exists(clientId + "." + format);
     }
     
-    public boolean existsClientsReportFile(String format) throws FileIOException {
+    public boolean existsClientsReportFile(String format) {
         return clientPrinterFileRepository.exists("clients." + format);
     }
 }

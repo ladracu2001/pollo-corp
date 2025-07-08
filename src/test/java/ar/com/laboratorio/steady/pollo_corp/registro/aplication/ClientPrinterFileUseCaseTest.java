@@ -1,5 +1,6 @@
 package ar.com.laboratorio.steady.pollo_corp.registro.aplication;
 
+import ar.com.laboratorio.steady.pollo_corp.registro.common.Constants;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterFileRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -86,26 +87,18 @@ class ClientPrinterFileUseCaseTest {
     void saveClientsReportFile_throwsFileIOException() throws IOException {
         doThrow(new IOException("fail")).when(repository).save("clients.txt", "contenido");
         FileIOException ex = assertThrows(FileIOException.class, () -> useCase.saveClientsReportFile("txt", "contenido"));
-        assertTrue(ex.getMessage().contains("Error saving clients report file"));
+        assertTrue(ex.getMessage().contains(Constants.FILE_EXCEPTION_SAVE));
     }
 
     @Test
     void existsClientReportFile_ok() {
         when(repository.exists("123.txt")).thenReturn(true);
-        try {
-            assertTrue(useCase.existsClientReportFile("123", "txt"));
-        } catch (FileIOException e) {
-            e.printStackTrace();
-        }
+        assertTrue(useCase.existsClientReportFile("123", "txt"));        
     }
 
     @Test
     void existsClientsReportFile_ok() {
         when(repository.exists("clients.txt")).thenReturn(false);
-        try {
-            assertFalse(useCase.existsClientsReportFile("txt"));
-        } catch (FileIOException e) {
-            e.printStackTrace();
-        }
+        assertFalse(useCase.existsClientsReportFile("txt"));
     }
 }

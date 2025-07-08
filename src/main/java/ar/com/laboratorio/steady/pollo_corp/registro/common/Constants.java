@@ -21,4 +21,7 @@ public class Constants {
     public static final String ADDRESS_EXCEPTION_INVALID = "La dirección %s proporcionada es inválida";
     public static final String PUSH_EXCEPTION_NOTIFICATION = "Error al enviar la notificación push: ";
     public static final String INTERNAL_EXCEPTION_NOTIFICATION = "Error no contemplado: ";
+    public static final String FILE_EXCEPTION_DELETE = "Error deleting client report file: ";
+    public static final String FILE_EXCEPTION_SAVE = "Error saving client report file: ";
+    public static final String FILE_EXCEPTION_LOAD = "Error loading client report file: ";
 }
