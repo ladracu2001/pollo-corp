@@ -2,6 +2,7 @@ package ar.com.laboratorio.steady.pollo_corp.registro.aplication.services;
 
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientRepository;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.ports.out.ClientPrinterFileRepository;
+import ar.com.laboratorio.steady.pollo_corp.registro.dominio.Client;
 import ar.com.laboratorio.steady.pollo_corp.registro.dominio.excepciones.FileIOException;
 import java.util.List;
 
@@ -16,13 +17,21 @@ public class ClientExportService {
     }
 
     public void exportAllClientsToFile(String format) throws FileIOException {
-        List<?> clients = clientRepository.findAll();
+        List<Client> clients = clientRepository.findAll();
         // Aquí conviertes la lista a texto (CSV, JSON, etc.)
         StringBuilder sb = new StringBuilder();
         sb.append("cuil,dni,name,surname,lastName,birthDate,email,phoneNumber,address\n");
         clients.forEach(c -> {
             // Asume que tienes getters apropiados en tu entidad o dominio
-            // sb.append(...).append(",");
+             sb.append(c.getCuil()).append(",")
+               .append(c.getDni()).append(",")
+               .append(c.getName()).append(",")
+               .append(c.getSurname()).append(",")
+               .append(c.getLastName()).append(",")
+               .append(c.getBirthDate()).append(",")
+               .append(c.getEmail()).append(",")
+               .append(c.getPhoneNumber()).append(",")
+               .append(c.getAddress()).append("\n");
         });
         try {
             fileRepository.save("clients." + format, sb.toString());

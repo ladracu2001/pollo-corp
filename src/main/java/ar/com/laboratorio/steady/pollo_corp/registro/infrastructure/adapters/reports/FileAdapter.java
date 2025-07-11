@@ -17,6 +17,7 @@ public class FileAdapter implements ClientPrinterFileRepository {
     @Override
     public void save(String filename, String content) throws IOException {
         Path filePath = baseDirectory.resolve(filename);
+        Files.createDirectories(baseDirectory);
         Files.writeString(filePath, content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
